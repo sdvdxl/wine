@@ -74,12 +74,8 @@ create table sales_comments (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='销售注释';
 
 ------ 初始化语句
-insert into `user`(`uuid`, `time_create`, `time_update`, `nickname`, `password`,`salt`, `phone`, `role` )
-values('ddd4b5a9-fecd-446c-bd78-63b70bb500a1', now(), now(), '黄总',
-'1664ad4059146142c15288688b4e138b066b27463fadad8009ab038aafa6f5016060f0360f4aab418e96de5b5f3e43349d9d6897d372b69a6a71a72b3994cdfc',
-'245accec-3c12-4642-967f-e476cef558c4', '13809777237', 'super_admin');
 
 insert into `user`(`uuid`, `time_create`, `time_update`, `nickname`, `password`,`salt`, `phone`, `role` )
-values('edd4b5a9-fecd-446c-bd78-63b70bb500a1', now(), now(), '杜龙少',
+values('edd4b5a9-fecd-446c-bd78-63b70bb500a1', now(), now(), '超级管理员',
 'cea4ca9d951bedc59f1cad5b6c134202843821ad0e549625efb9c25767417b4fa044a19a47220fd1c227d2dc4cbaefbdc86f4cdef0845e45cb618b2e1cb6f5a3',
-'245accec-3c12-4642-967f-e476cef558c0', '13165360918', 'super_admin');
+'245accec-3c12-4642-967f-e476cef558c0', '13812345678', 'super_admin');
