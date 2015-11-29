@@ -1,0 +1,187 @@
+/* === Import font === */
+@import url(http://fonts.googleapis.com/css?family=Share:400,400italic,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+
+/* === STYLE === */
+* {
+	margin: 0;
+}
+
+html, body
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+body
+{
+	background: #020202;
+	overflow:hidden
+}
+
+img{
+	border: none;
+}
+
+.wrap
+{
+	overflow: hidden;
+	position: relative;
+}
+
+/* === HEADER SECTION === */
+.wrap_header{
+	
+}
+
+/* === CONTENT SECTION === */
+.wrap_content{
+	margin: 0px auto;
+	width: 980px;
+	height: 250px;
+	padding-top: 200px;
+	text-align: center;
+	z-index: 1;
+}
+.wrap_content h1{
+	color: #a9a8a8;
+	font-family: "Share", Arial;
+	font-size: 82px!important;
+	letter-spacing: -2px;
+	font-weight: bold;
+}
+
+.wrap_content h2{
+	color: #a9a8a8;
+	font-family: "Share", Arial;
+	font-size: 75px!important;
+	letter-spacing: -2px;
+	font-weight: bold;
+}
+
+.wrap_content p{
+	color: #a9a8a8;
+	font-family: 'Lato', sans-serif;
+	font-size: 18px;
+	line-height: 23px;
+	font-weight: bold;
+}
+
+.wrap_content a{
+	color: #548326;
+	text-decoration: none;
+}
+
+.wrap_content a:hover{
+	color: #106a2d;
+	text-decoration: underline;
+}
+
+/* === BOTTOM SECTION === */
+.wrap_bottom{
+	width: 100%;
+	min-height: 246px;
+	position: absolute;
+	bottom: 54px;
+	z-index: -4;
+	
+}
+
+.wrap_bottom .image_wrapper{
+	width: 980px;
+	min-height: 246px;
+	margin: 0px auto;
+
+}
+
+/* === FOOTER SECTION === */
+.wrap_footer{
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	height: 54px;
+	background: url(../images/bg-footer.png) repeat-x;
+}
+
+.wrap_footer .content_footer{
+	width: 980px;
+	margin: 20px auto 0px auto;
+	position: relative;
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	letter-spacing: -1px;
+	color: white;
+}
+
+.wrap_footer .content_footer .left{
+	width: 490px;
+	float: left;	
+}
+
+.wrap_footer .content_footer .right{
+	width: 490px;
+	float: right;	
+	text-align: right;
+}
+
+.wrap_footer .content_footer a{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.wrap_footer .content_footer a:hover{
+	text-decoration: underline;
+}
+
+
+/* === DEVINE BACKGROUND IMAGE === */
+#clouds {
+	width:100%;
+	height:352px;
+	background-image:url(../images/clouds404.png);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	position:absolute;
+	z-index:-2;
+}
+
+#stars {
+	background:url(../images/stars.png) repeat;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    width:100%;
+	height:100%;
+	z-index:-4;
+}
+
+#moon{
+	position: absolute;
+	left: 25%;
+	top: 15%;
+	width: 152px;
+	height: 151px;
+    background:transparent url(../images/moon.png) no-repeat center center;
+	z-index:-4!important;
+}
+
+#house{
+	left: 5px;
+	width: 275px;
+	height: 246px;
+	background:transparent url(../images/house.png) no-repeat center center;
+}
+
+#tumbleweed{
+	width: 29px;
+	height: 26px;
+	background:transparent url(../images/tubleweed.png) no-repeat;
+	position: absolute;
+	bottom: 0; 
+	left: 101%;
+	z-index:-4!important;
+}

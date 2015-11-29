@@ -1,0 +1,40 @@
+<div class="am-offcanvas-bar admin-offcanvas-bar">
+    <ul class="am-list admin-sidebar-list">
+        <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
+        <input type="hidden" id="_cur_nav_" value="{{.curNav}}">
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{target: '#order-manage'}"><span class="am-icon-file"></span> 订单管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub " id="order-manage">
+                <li><a href="/order/order_list.html" class="am-cf"><span class="am-icon-check"></span> 订单列表<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                {{if ne .curUser.Role "sales"}} <li><a href="/order/order_upload.html"><span class="am-icon-puzzle-piece"></span> 上传订单</a></li>{{end}}
+            </ul>
+        </li>
+
+        {{if eq .curUser.Role "super_admin"}}
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{target: '#user-manage'}"><span class="am-icon-file"></span> 成员管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="user-manage">
+                <li><a href="/user/user_list.html" class="am-cf"><span class="am-icon-check"></span> 成员列表列表<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            </ul>
+        </li>
+        {{end}}
+        <li><a href="/user/me.html"><span class="am-icon-pencil-square-o"></span> 我的信息</a></li>
+        <li><a href="/user/logout"><span class="am-icon-sign-out"></span> 注销</a></li>
+    </ul>
+
+    <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+            <p><span class="am-icon-bookmark"></span> 公告</p>
+            <p>公司公告</p>
+        </div>
+    </div>
+</div>
+
+<script>
+        var curNav = $('#_cur_nav_').val();
+    if (curNav=='user') {
+      $('#user-manage').addClass('am-in');
+    } else  if (curNav=='order') {
+      $('#order-manage').addClass('am-in');
+    }
+</script>

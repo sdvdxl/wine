@@ -1,0 +1,8 @@
+#要登录才能访问的页面
+login_pages:
+  - /user/me.html
+
+#要登录才能访问的路径
+login_paths:
+  - /order
+  - /user

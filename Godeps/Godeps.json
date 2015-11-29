@@ -1,0 +1,131 @@
+{
+	"ImportPath": "github.com/sdvdxl/wine",
+	"GoVersion": "go1.5.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/boj/redistore",
+			"Comment": "v1-9-g9c0e6ba",
+			"Rev": "9c0e6bab4dd444285424f189b8fb0cb03f653242"
+		},
+		{
+			"ImportPath": "github.com/bradfitz/gomemcache/memcache",
+			"Comment": "release.r60-40-g72a6864",
+			"Rev": "72a68649ba712ee7c4b5b4a943a626bcd7d90eb8"
+		},
+		{
+			"ImportPath": "github.com/dchest/captcha",
+			"Comment": "weekly.2012-03-04-18-g9e95214",
+			"Rev": "9e952142169c3cd6268c6482a3a61c121536aca2"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Rev": "9d4db5d1dbeff473d50e1bb82f5405c8cca0f0ac"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Rev": "9d4db5d1dbeff473d50e1bb82f5405c8cca0f0ac"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/contrib/cache",
+			"Rev": "14f66d54cdb96059bafca98665bcc6d9df4951f2"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/contrib/sessions",
+			"Rev": "14f66d54cdb96059bafca98665bcc6d9df4951f2"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/contrib/static",
+			"Rev": "14f66d54cdb96059bafca98665bcc6d9df4951f2"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/gin",
+			"Comment": "v1.0rc1-143-g704d690",
+			"Rev": "704d690ac0e25fcd060ff82f75f913e879e65a3c"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.2-118-g3dd7008",
+			"Rev": "3dd7008ac1529aca1bcd8a9db75228a71ba23cac"
+		},
+		{
+			"ImportPath": "github.com/go-xorm/core",
+			"Rev": "4813c0110dc4ea27e05d77425385b4cd4abfe81b"
+		},
+		{
+			"ImportPath": "github.com/go-xorm/xorm",
+			"Comment": "v0.4.3-33-g97e7703",
+			"Rev": "97e7703766cb821b4903ddfc0468b21d5b26a717"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Rev": "215affda49addc4c8ef7e2534915df2c8c35c6cd"
+		},
+		{
+			"ImportPath": "github.com/gorilla/securecookie",
+			"Rev": "45e43d5d12f051fe5e9f538f0f237d58016b6866"
+		},
+		{
+			"ImportPath": "github.com/gorilla/sessions",
+			"Rev": "f2f9681165dec2e61ee10205b6c41861656ef487"
+		},
+		{
+			"ImportPath": "github.com/manucorporat/sse",
+			"Rev": "fe6ea2c8e398672518ef204bf0fbd9af858d0e15"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Rev": "40e4aedc8fabf8c23e040057540867186712faa5"
+		},
+		{
+			"ImportPath": "github.com/robfig/go-cache",
+			"Comment": "go.r60.3-61-g9fc39e0",
+			"Rev": "9fc39e0dbf62c034ec4e45e6120fc69433a3ec51"
+		},
+		{
+			"ImportPath": "github.com/sdvdxl/go-tools/collections",
+			"Rev": "cabe46581c259e9a690bae0d0cb1aee72d1b85db"
+		},
+		{
+			"ImportPath": "github.com/sdvdxl/go-tools/json",
+			"Rev": "cabe46581c259e9a690bae0d0cb1aee72d1b85db"
+		},
+		{
+			"ImportPath": "github.com/sdvdxl/go-tools/number",
+			"Rev": "cabe46581c259e9a690bae0d0cb1aee72d1b85db"
+		},
+		{
+			"ImportPath": "github.com/sdvdxl/go-tools/time",
+			"Rev": "cabe46581c259e9a690bae0d0cb1aee72d1b85db"
+		},
+		{
+			"ImportPath": "github.com/sdvdxl/go-uuid/uuid",
+			"Rev": "4a3aa8b5ddfd35b4c13c7f5e263e357fdfc3bde0"
+		},
+		{
+			"ImportPath": "github.com/sdvdxl/log4go",
+			"Comment": "go.weekly.2012-02-22-2-gcf72cbe",
+			"Rev": "cf72cbe67e8dac8c05bb393b0800c100a649d72d"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "66f0418ca41253f8d1a024eb9754e9441a8e79b9"
+		},
+		{
+			"ImportPath": "gopkg.in/alexcesaro/quotedprintable.v2",
+			"Rev": "9b4a113f96b3263b5223fe9c5fd1d1115811b343"
+		},
+		{
+			"ImportPath": "gopkg.in/bluesuncorp/validator.v5",
+			"Comment": "v5.12",
+			"Rev": "d5acf1dac43705f8bfbb71d878e290e2bed3950b"
+		},
+		{
+			"ImportPath": "gopkg.in/gomail.v1",
+			"Rev": "11b919ab4933936a28fb6aeda5c6523091266f37"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "53feefa2559fb8dfa8d81baad31be332c97d6c77"
+		}
+	]
+}

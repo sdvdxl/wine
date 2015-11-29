@@ -1,0 +1,555 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单列表</title>
+    <meta name="description" content="这是一个 user 页面">
+    <meta name="keywords" content="user">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/pagination.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，本管理系统不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas"></div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="am-g" >
+            <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <!-- <button type="button" class="order-add am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button> -->
+                        <button type="button" id="delete-selected" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <p><input type="text" class="am-form-field" placeholder="订单查询开始时间" id="order-start"/></p>
+                </div>
+                <div class="am-u-sm-6">
+                    <p><input type="text" class="am-form-field" id="order-end" placeholder="订单查询结束时间" /></p>
+                </div>
+            </div>
+            <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-form-group">
+                    <select id="search-type" data-am-selected="{btnSize: 'sm'}" style="display: none;">
+                        <option value="all">所有类别</option>
+                        <option value="date-baught-lt">购买次数少于</option>
+                        <option value="date-baught-eq">购买次数等于</option>
+                        <option value="date-baught-gt">购买次数多于</option>
+                        <option value="buyerName">买家会员名</option>
+                        <option value="buyerPayAccount">买家支付宝帐号</option>
+                        <option value="deliveryName">收货人姓名</option>
+                        <option value="contactTel">联系电话</option>
+                        <option value="contactPhone">联系手机</option>
+                        <option value="deliveryAddress">收货地址</option>
+                    </select>
+                </div>
+            </div>
+            <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-input-group am-input-group-sm">
+                    <input id="sea-content" type="text" class="am-form-field">
+		          <span class="am-input-group-btn">
+		            <button id="sea-button" class="am-btn am-btn-default" type="button">搜索</button>
+		          </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="am-g">
+            <div class="am-u-sm-12 am-text-nowrap am-scrollable-horizontal">
+                <table class="am-table am-table-striped am-table-hover table-main ">
+                    <thead>
+                    <tr>
+                        <th class="table-check"><input id="all-checkbox" type="checkbox"></th>
+                        <th class="table-id">序号</th>
+                        <th class="table-order-no">订单编号</th>
+                        <th class="table-buyer-name">买家会员名</th>
+                        <th class="table-buyer-pay-account">买家支付宝账号</th>
+                        <th class="table-total-price">总金额</th>
+                        <th class="table-order-status">订单状态</th>
+                        <th class="table-delivery-name">收货人姓名</th>
+                        <th class="table-delivery-address">收货地址</th>
+                        <th class="table-contact-tel">联系电话 </th>
+                        <th class="table-contact-phone">联系手机</th>
+                        <th class="table-order-create-time">订单创建时间</th>
+                        <th class="table-goods-name">宝贝标题 </th>
+                        <th class="table-goods-amount">宝贝总数量</th>
+                        <th class="table-order-comments">订单备注</th>
+                        <th class="table-create-time">录入时间</th>
+                        <th class="table-update-time">修改时间</th>
+                        <th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="order-list-body"></tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div id="page-info">
+            共<span id="total-pages" class="am-badge am-badge-success">1</span>页
+            共<span id="total-records" class="am-badge am-badge-secondary">0</span>条
+            每页<span id="page-size" class="am-badge am-badge-primary">10</span>条
+        </div>
+        <div id="pager"></div>
+    </div>
+    <!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<!-- 操作结果提示 start -->
+<div class="am-modal am-modal-alert" tabindex="-1" id="alert-msg">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd" id="operation-result-msg">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
+<!-- 操作结果提示 end -->
+
+<!-- modal start -->
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="_global_modal_">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在载入...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
+        </div>
+    </div>
+</div>
+<!-- modal  end -->
+
+<!-- 删除弹框 start -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">删除确认</div>
+        <div class="am-modal-bd">
+            确定要删除选择的订单?
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+<!-- 删除弹框 end -->
+
+<!-- 添加,修改 弹出框 start -->
+<div class="am-modal am-modal-prompt" tabindex="-1" id="add-edit-popup">
+    <form id="add-edit-form">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd " id="popup-title"></div>
+            <div class="am-modal-bd">
+                <table>
+                    <input type="hidden" id="order-uuid">
+                    <tr><td>订单编号</td><td><input id="order-no" type="text" class="am-modal-prompt-input"></td><td style='color:red'>* 必填</td></tr>
+                    <tr><td>买家会员名</td><td><input id="buyer-name" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>买家支付宝账号</td><td><input id="buyer-pay-account" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>总金额</td><td><input id="total-price" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>订单状态</td><td><input id="order-status" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>收货人姓名</td><td><input id="delivery-name" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>收货地址</td><td><input id="delivery-address" type="text" class="am-modal-prompt-input"></td><td style='color:red'>省市等区域之间用空格隔开</td></tr>
+                    <tr><td>联系电话</td><td><input id="contact-tel" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>联系手机</td><td><input id="contact-phone" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>订单创建时间</td><td><input id="order-create-time" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>宝贝标题</td><td><input id="goods-name" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>宝贝总数量</td><td><input id="goods-amount" type="text" class="am-modal-prompt-input"></td></tr>
+                    <tr><td>订单备注</td><td><input id="order-comments" type="text" class="am-modal-prompt-input"></td></tr>
+                </table>
+
+
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 添加,修改 弹出框 end -->
+
+<!-- 添加注释 弹出框 start -->
+<div class="am-modal am-modal-prompt" tabindex="-1" id="add-comments-popup">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd " id="comments-popup-title"></div>
+            <div class="am-modal-bd">
+                <div class="am-g" >
+                    <div style="overflow-y: scroll; height: 200px" class="am-u-sm-12 am-text-nowrap am-scrollable-horizontal">
+                        <table class="am-table am-table-striped am-table-hover table-main ">
+                            <thead>
+                            <tr>
+                                <th class="table-user-phone">手机号</th>
+                                <th class="table-user-name">姓名</th>
+                                <th class="table-user-comments">注释</th>
+                            </tr>
+                            </thead>
+                            <tbody id="comments-list-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <textarea id="comments" cols="40" rows="4"></textarea>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+</div>
+<!-- 添加注释 弹出框 end -->
+
+<footer id="_footer_">
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/jquery.pagination.js"></script>
+<script>
+function html_encode(str)
+{
+  var s = "";
+  if (str.length == 0) return "";
+  s = str.replace(/&/g, "&gt;");
+  s = s.replace(/</g, "&lt;");
+  s = s.replace(/>/g, "&gt;");
+  s = s.replace(/ /g, "&nbsp;");
+  s = s.replace(/\'/g, "&#39;");
+  s = s.replace(/\"/g, "&quot;");
+  s = s.replace(/\n/g, "<br>");
+  return s;
+}
+
+
+//加载订单列表数据
+function loadOrderData(curPage, seaType, seaContent ) {
+    $('#_global_modal_').modal();
+    $.get('/order/order_list',
+    {'curPage': curPage,
+    'seaType': seaType,
+    'seaContent': seaContent,
+    'orderStart': $('#order-start').val(),
+    'orderEnd': $('#order-end').val()},
+    function(data){
+    	  if (!data.success) {
+    	  	alert(data.msg);
+    	  	return;
+    	  }
+      var page = data.data.page;
+      $('#total-pages').text(page.totalPages);
+      $('#total-records').text(page.totalRecords);
+      $('#page-size').text(page.pageSize);
+        $("#pager").pagination({
+            items: page.totalRecords,
+            itemsOnPage: page.pageSize,
+            currentPage: page.curPage,
+            cssStyle: 'light-theme',
+            onPageClick: function(pageNumber, event) {
+                loadOrderData(pageNumber)
+            }
+        });
+
+        var content = "";
+        $.each(data.data.orderList, function(i, item){
+            content += '<tr><td><input type="checkbox" value='+ item.uuid +'></td>';
+            content += '<td>'+ (i+1) + '</td>';
+            content += '<td>'+ (item.orderNo || '') + '</td>';
+            content += '<td>'+ (html_encode(item.buyerName) || '') + '</td>';
+            content += '<td>'+ (html_encode(item.buyerPayAccount) || '') + '</td>';
+            content += '<td>'+ (item.totalPrice || '')  + '</td>';
+            content += '<td>'+ (html_encode(item.orderStatus) || '')  + '</td>';
+            content += '<td>'+ (html_encode(item.deliveryName) || '')  + '</td>';
+            content += '<td>'+ (html_encode(item.deliveryAddressProvince) || '')  + ' ' + (html_encode(item.deliveryAddressCity) || '')  + ' ' + (html_encode(item.deliveryAddressArea) || '')  + ' ' + (html_encode(item.deliveryAddressTown) || '')  + ' ' + (html_encode(item.deliveryAddressDetail) || '')  + '</td>';
+            content += '<td>'+ (item.contactTel || '')  + '</td>';
+            content += '<td>'+ (item.contactPhone || '')  + '</td>';
+            content += '<td>'+ (item.orderCreateTime || '')  + '</td>';
+            content += '<td>'+ (html_encode(item.goodsName) || '')  + '</td>';
+            content += '<td>'+ (item.goodsAmount || '')  + '</td>';
+            content += '<td>'+ (html_encode(item.orderComments) || '')  + '</td>';
+            content += '<td>'+ (item.timeCreate || '')  + '</td>';
+            content += '<td>'+ (item.timeUpdate || '')  + '</td>';
+            content += '<td><div class="am-btn-toolbar "><button class="order-comments am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>查看注释</button><button class="order-edit am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button><button class="order-delete am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button></div></tr>';
+        })
+
+        $('#order-list-body').html(content);
+    }, 'json').done(function(){
+        $('#_global_modal_').modal('close');
+    });
+}
+
+$(function(){
+	var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+    var $myStart2 = $('#order-start');
+
+    var checkin = $myStart2.datepicker({
+      onRender: function(date) {
+      	return '';
+        //return date.valueOf() < now.valueOf() ? 'am-disabled' : '';
+      }
+    }).on('changeDate.datepicker.amui', function(ev) {
+        if (ev.date.valueOf() > checkout.date.valueOf()) {
+          var newDate = new Date(ev.date)
+          newDate.setDate(newDate.getDate() + 1);
+          checkout.setValue(newDate);
+        }
+        checkin.close();
+        $('#order-end')[0].focus();
+    }).data('amui.datepicker');
+
+    var checkout = $('#order-end').datepicker({
+      onRender: function(date) {
+      	return '';
+        //return date.valueOf() <= checkin.date.valueOf() ? 'am-disabled' : '';
+      }
+    }).on('changeDate.datepicker.amui', function(ev) {
+      checkout.close();
+    }).data('amui.datepicker');
+	
+	
+//搜索
+$('#sea-button').on('click',function(){
+	var seaType = $('#search-type').children('option:selected').val();
+	var seaContent = $('#sea-content').val();
+	
+	if (seaType=='all') {
+		seaType = null;
+	}
+	
+	loadOrderData($('#hidden-cur-page').val(), seaType, seaContent)
+});
+
+loadOrderData(1)
+
+//删除
+$('.order-delete').live('click', function(){
+	$this = $(this);
+
+	$('#my-confirm').modal({
+        relatedTarget: this,
+        onConfirm: function(options) {
+          var oids = [];
+            orderUuid = $this.parents('tr').find(':checkbox').val();
+            oids.push(orderUuid);
+            $.post('/order/order_delete',
+            {'oid' : JSON.stringify(oids)
+            },function(data){
+                if (data.success) {
+                    $('#sea-button').trigger('click');
+                }
+
+                $('#operation-result-msg').html(data.msg);
+                $('#alert-msg').modal({
+                    relatedTarget: this
+                });
+            }, 'json');
+        },
+        // closeOnConfirm: false,
+        onCancel: function() {
+
+        }
+      });
+});
+
+//添加,编辑
+$('.order-edit,.order-add').live('click', function(){
+    var $this = $(this);
+    if ($this.hasClass('order-add')) {
+        $('#popup-title').html('添加订单');
+        var $row = $this.parents('tr');
+        $('#add-edit-form')[0].reset()
+    } else {
+        var $row = $this.parents('tr');
+        $('#order-uuid').val($row.find(':checkbox').val());
+        $('#order-no').val($row.find('td').eq(2).text());
+        $('#buyer-name').val($row.find('td').eq(3).text());
+        $('#buyer-pay-account').val($row.find('td').eq(4).text());
+        $('#total-price').val($row.find('td').eq(5).text());
+        $('#order-status').val($row.find('td').eq(6).text());
+        $('#delivery-name').val($row.find('td').eq(7).text());
+        $('#delivery-address').val($row.find('td').eq(8).text());
+        $('#contact-tel').val($row.find('td').eq(9).text());
+        $('#contact-phone').val($row.find('td').eq(10).text());
+        $('#order-create-time').val($row.find('td').eq(11).text());
+        $('#goods-name').val($row.find('td').eq(12).text());
+        $('#goods-amount').val($row.find('td').eq(13).text());
+        $('#order-comments').val($row.find('td').eq(14).text());
+        $('#popup-title').html('修改订单');
+    }
+
+    $('#add-edit-popup').modal({
+      relatedTarget: this,
+      onConfirm: function(e) {
+        var order = {};
+        order['uuid'] = $('#order-uuid').val();
+        order['orderNo'] = $('#order-no').val();
+        order['buyerName'] = $('#buyer-name').val();
+        order['buyerPayAccount'] = $('#buyer-pay-account').val();
+        order['totalPrice'] = $('#total-price').val();
+        order['orderStatus'] = $('#order-status').val();
+        order['deliveryName'] = $('#delivery-name').val();
+        order['deliveryAddressProvince'] = $('#delivery-address').val();
+        order['contactTel'] = $('#contact-tel').val();
+        order['contactPhone'] = $('#contact-phone').val();
+        order['orderCreateTime'] = $('#order-create-time').val();
+        order['goodsName'] = $('#goods-name').val();
+        order['goodsAmount'] = $('#goods-amount').val();
+        order['orderComments'] = $('#order-comments').val();
+        $.post('/order/order_update', {'orderInfo': JSON.stringify(order)}, function(data){
+            if (data.success) {
+                    $('#sea-button').trigger('click');
+                }
+
+                $('#operation-result-msg').html(data.msg);
+                $('#alert-msg').modal({
+                    relatedTarget: this
+                });
+        }, 'json');
+      },
+      onCancel: function(e) {
+
+      }
+    });
+});
+
+
+//选择当前页所有
+$('#all-checkbox').on('click', function(){
+    var $this = $(this);
+    if ($this.attr('checked')) {
+      $('#order-list-body').find(':checkbox').attr('checked','checked');
+    } else {
+        $('#order-list-body').find(':checkbox').removeAttr('checked');
+    }
+
+});
+
+//批量删除
+$('#delete-selected').on('click', function(){
+    var oids = [];
+    $.each($('#order-list-body').find(':checkbox:checked'), function(i, item){
+        oids.push($(item).val())
+    });
+
+    if (oids.length==0) {
+        $('#operation-result-msg').html('请选择要删除的订单');
+        $('#alert-msg').modal({
+            relatedTarget: this
+        });
+
+        return;
+    }
+
+    $('#my-confirm').modal({
+        relatedTarget: this,
+        onConfirm: function(options) {
+            $.post('/order/order_delete',
+            {'oid' : JSON.stringify(oids)
+            },function(data){
+                if (data.success) {
+                    $('#sea-button').trigger('click');
+                }
+
+                $('#operation-result-msg').html(data.msg);
+                $('#alert-msg').modal({
+                    relatedTarget: this
+                });
+            }, 'json').done(function(){$('#all-checkbox').removeAttr('checked')});
+        },
+        // closeOnConfirm: false,
+        onCancel: function() {
+
+        }
+      });
+
+});
+
+$('.order-comments').live('click', function(){
+    $('#_global_modal_').modal();
+    $("#comments").val(''),
+	$this = $(this);
+	var orderUuid = $this.parents('tr').find(':checkbox').val();
+
+    //加载注释
+    $.get('/order/order_comments',
+    {'oid':orderUuid
+    }, function(data){
+        if (!data.success) {
+            $('#operation-result-msg').html(data.msg);
+                $('#alert-msg').modal({
+                    relatedTarget: this
+                });
+        } else {
+            var content = '';
+            $.each(data.data, function(i, item) {
+                content += '<tr><td>' + item.phone + '</td>';
+                content += '<td>' + html_encode(item.nickname) + '</td>';
+                content += '<td>' + html_encode(item.comments) + '</td></tr>';
+            });
+
+            $('#comments-list-body').html(content);
+            $('#_global_modal_').modal('close');
+        }
+    }, 'json').done(function(){
+
+        //弹出注释的框
+        $('#add-comments-popup').modal({
+            relatedTarget: this,
+            onConfirm: function(options) {
+                $('#_global_modal_').modal('close');
+                $.post('/order/order_add_comments',
+                {'comments' : $("#comments").val(),
+                     'oid': $this.parents('tr').find(':checkbox').val()
+                },function(data){
+                    $('#operation-result-msg').html(data.msg);
+                    $('#alert-msg').modal({
+                        relatedTarget: this
+                    });
+                }, 'json').done(function(){$('#all-checkbox').removeAttr('checked');
+                    $('#_global_modal_').modal('close');
+                });
+            },
+            // closeOnConfirm: false,
+        onCancel: function() {
+
+        }
+      });
+    });
+});
+
+})
+
+
+</script>
+</body>
+</html>
